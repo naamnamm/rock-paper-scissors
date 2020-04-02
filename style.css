@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+}
+
+.header-1 {
+    height: 30px;
+    background-color: black;
+}
+
+.header-2 {
+    border: 1px solid black;
+}
+
+    .header-title {
+        text-align: center;
+        letter-spacing: 2px;
+    }
+
+.main-1 {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 50px 0;
+    border: 1px solid black;
+    background-color: lightgray;
+}
+
+    .user-stage-container, .computer-stage-container {
+        height: 200px;
+        width: 350px;
+        border: 1px solid black;
+        border-radius: 15px;
+        background-color: white;
+    }
+
+        .user-name, .computer-name {
+            width: 330px;
+            height: 50px;
+            border: 1px solid black;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        #user-choice, #computer-choice { 
+            width: 330px;
+            height: 120px;
+            border: 1px solid black;
+            margin: 0 auto 10px;
+            display: flex;
+        }
+
+            /* .user-choose-rock, .user-choose-paper, .user-choose-scissors {
+                width: 80px;
+                height: 80px;
+                margin: 20px auto;
+                border: 1px solid black;
+            } */
+
+                .rock, .paper, .scissors {
+                    width: 80px;
+                    height: 80px;
+                    margin: 0;
+                    margin: 20px auto;
+                    text-align: center;
+                }
+
+                .computer-rock, .computer-paper, .computer-scissors {
+                    transform: scaleX(-1);
+                    width: 80px;
+                    height: 80px;
+                    margin: 0;
+                    margin: 20px auto;
+                    text-align: center;
+                }
+
+            /* .computer-choice-1, .computer-choice-2, .computer-choice-3 {
+                width: 80px;
+                height: 80px;
+                margin: 20px auto;
+                border: 1px solid black;
+            } */
+
+.main-2 {
+    height: 300px;
+    border: 1px solid black;
+}
+
+    .scoreboard-container {
+        margin: 50px auto;
+        width: 250px;
+        height: 200px;
+        border: 1px solid black;
+    }
+
+        .scoreboard-header {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+            .scoreboard-header-1, .scoreboard-header-2, .scoreboard-header-3 {
+                width: 70px;
+                height: 70px;
+                border: 1px solid black;
+                text-align: center;
+            }
+
+        .scoreboard-main {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+            .scoreboard-main-1, .scoreboard-main-2, .scoreboard-main-3 {
+                width: 70px;
+                height: 70px;
+                border: 1px solid black;
+                text-align: center;
+            }
