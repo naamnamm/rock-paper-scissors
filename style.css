@@ -110,7 +110,7 @@ body {
             margin: 10px 0;
         }
 
-            .scoreboard-main-1, .scoreboard-main-2, .scoreboard-main-3 {
+            .scoreboard-user, .scoreboard-middle, .scoreboard-computer {
                 width: 70px;
                 height: 70px;
                 border: 1px solid black;
