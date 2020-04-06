@@ -13,20 +13,50 @@
 
 const log = console.log
 
-function updateScoreBoard(winner) {
-    let userScore = document.getElementsByClassName('scoreboard-user')[0];
-    let computerScore = document.getElementsByClassName('scoreboard-computer')[0];
-    
-    //let userCurrentScore = 0; // 
-    //let computerCurrentScore = 0;
+const userName = prompt("What's your name?");
 
-    if (winner === 'user') {
-        userScore.textContent += 1;
+let userNameTitle = document.getElementById('user-name-title');
+let userNameScoreboard = document.getElementById('user-name-scoreboard');
+
+if (userName == null || userName.length == 0) {
+    userNameTitle.innerText = 'User'; 
+    userNameScoreboard.innerText = 'User';
+}   else {
+    userNameTitle.innerText = `${userName}`;
+    userNameScoreboard.innerText = `${userName}`;
+}
+
+const isGameOver = false;
+
+let userCurrentScore = 0;
+let computerCurrentScore = 0;
+
+function updateScoreBoard(winner) {
+    let userScore = document.getElementById('user-score');
+    let computerScore = document.getElementById('computer-score');
+    
+    if (winner === 'user')  {
+        userCurrentScore += 1;
+        userScore.innerText = formatScore(userCurrentScore);
     } else if (winner === 'computer') {
-        computerScore.textContent += 1;
+        computerCurrentScore += 1;
+        computerScore.innerText = formatScore(computerCurrentScore);
     }
+
+    //log(currentScore);
     
     setTimeout(setToBegining, 3000);
+}
+
+function formatScore(userCurrentScore, computerCurrentScore) {
+    if (userCurrentScore < 10) {
+        return '0' + userCurrentScore;
+    } 
+    if (computerCurrentScore < 10) {
+        return '0' + computerCurrentScore;
+    } else {
+        return computerCurrentScore, userCurrentScore; 
+    }
 }
 
 
@@ -40,16 +70,16 @@ function determine_winner(userChosen_value, computerChosen_value) {
     //if tie, reload the page
     if (userChosen_value === computerChosen_value) {
         updateText.textContent = 'Tie!';
-        setTimeout(setToBegining, 2000);
+        setTimeout(setToBegining, 2500);
     } else if (userChosen_value === 'rock' && computerChosen_value === 'scissors') {
         winner = 'user';
-        updateText.textContent = 'user wins';
+        updateText.textContent = `${userName} wins`;
     } else if (userChosen_value === 'paper' && computerChosen_value === 'rock') {
         winner = 'user';
-        updateText.textContent = 'user wins';
+        updateText.textContent = `${userName} wins`;
     } else if (userChosen_value === 'scissors' && computerChosen_value === 'paper') {
         winner = 'user';
-        updateText.textContent = 'user wins';
+        updateText.textContent = `${userName} wins`;
     } else {
         winner = 'computer';
         updateText.textContent = 'computer wins';
@@ -81,18 +111,22 @@ function computerChoose(userChosen_value) {
 
 function userChoose(e) {
     let userChosen_value = '';
+    let rock = document.getElementsByClassName('rock')[0];
+    let paper = document.getElementsByClassName('paper')[0];
+    let scissors = document.getElementsByClassName('scissors')[0];
+
     if (e.target.classList.contains('rock')) {
         userChosen_value = 'rock';
-        document.getElementsByClassName('paper')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('scissors')[0].style.visibility = 'hidden';  
+        paper.style.visibility = 'hidden';
+        scissors.style.visibility = 'hidden';  
     } else if (e.target.classList.contains('paper')) {
         userChosen_value = 'paper';
-        document.getElementsByClassName('rock')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('scissors')[0].style.visibility = 'hidden';
+        rock.style.visibility = 'hidden';
+        scissors.style.visibility = 'hidden';
     } else if (e.target.classList.contains('scissors')) {
         userChosen_value = 'scissors';
-        document.getElementsByClassName('rock')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('paper')[0].style.visibility = 'hidden';
+        rock.style.visibility = 'hidden';
+        paper.style.visibility = 'hidden';
     } 
     
     computerChoose(userChosen_value);
@@ -114,26 +148,9 @@ function setToBegining() {
     document.getElementsByClassName('computer-scissors')[0].style.visibility = '';
 }
 
-    // //do i nees to save this to local storage?
-    // let currentScore = [{user: 0}, {computer: 0}];
+//animate opacity? https://www.youtube.com/watch?v=CxC925yUxSI&t=440s
 
-    // localStorage.setItem('saved-score', JSON.stringify(currentScore))
-    // //get current score
-    // let savedScore = JSON.parse(localStorage.getItem('saved-score'));
-    // log(savedScore);
-    // log(savedScore[0]);
-    // log(savedScore[0].user);
-    // log(typeof(savedScore[0].user));
 
-    // //update current score
-    // if (winner === 'user') {
-    //     savedScore[0].user += 1;
-    // } else {
-    //     savedScore[1].computer += 1;
-    // }
-
-    // log(savedScore);
-    // localStorage.setItem('saved-score', JSON.stringify(savedScore))
 
 
 
