@@ -26,23 +26,33 @@ function updateScoreBoard(winner) {
         computerScore.textContent += 1;
     }
     
+    setTimeout(setToBegining, 3000);
 }
 
 
 function determine_winner(userChosen_value, computerChosen_value) {
     //console.log(userChoose_value, computerChoose_value)
     let winner = '';
+    let resultDisplay = document.getElementsByClassName('middle-stage-container')[0];
+    resultDisplay.style.opacity = '1'; 
+
+    let updateText = document.getElementById('result');
     //if tie, reload the page
     if (userChosen_value === computerChosen_value) {
-        setTimeout(location.reload(), 5000); //this doesn't delay as expected.
+        updateText.textContent = 'Tie!';
+        setTimeout(setToBegining, 2000);
     } else if (userChosen_value === 'rock' && computerChosen_value === 'scissors') {
         winner = 'user';
+        updateText.textContent = 'user wins';
     } else if (userChosen_value === 'paper' && computerChosen_value === 'rock') {
         winner = 'user';
+        updateText.textContent = 'user wins';
     } else if (userChosen_value === 'scissors' && computerChosen_value === 'paper') {
         winner = 'user';
+        updateText.textContent = 'user wins';
     } else {
         winner = 'computer';
+        updateText.textContent = 'computer wins';
     }  
 
     updateScoreBoard(winner);
@@ -92,6 +102,17 @@ let userChoice = document.getElementById('user-choice');
 userChoice.addEventListener('click', userChoose);
 
 //--------------------------------------------
+
+function setToBegining() {
+    let resultDisplay = document.getElementsByClassName('middle-stage-container')[0];
+    resultDisplay.style.opacity = '0';
+    document.getElementsByClassName('rock')[0].style.visibility = '';
+    document.getElementsByClassName('paper')[0].style.visibility = ''; 
+    document.getElementsByClassName('scissors')[0].style.visibility = '';
+    document.getElementsByClassName('computer-rock')[0].style.visibility = '';
+    document.getElementsByClassName('computer-paper')[0].style.visibility = '';
+    document.getElementsByClassName('computer-scissors')[0].style.visibility = '';
+}
 
     // //do i nees to save this to local storage?
     // let currentScore = [{user: 0}, {computer: 0}];
