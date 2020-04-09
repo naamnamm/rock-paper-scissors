@@ -8,6 +8,10 @@
   </head>
   <body>
       <header>
+        <div id="header-nav" class="circle">
+          <button id='start-button'>Start the game</button>
+        </div>
+
         <div class="header-1"></div>
 
         <div class="header-2">
@@ -24,9 +28,9 @@
             </div>
 
             <div id='user-choice'>
-                <img src='images/rock.jpg' alt='rock' class='rock'>
-                <img src='images/paper.jpg' alt='paper' class='paper'>
-                <img src='images/scissors.jpg' alt='scissors' class='scissors'>
+                <img src='images/rock.jpg' alt='rock' class='rock rock-hover'>
+                <img src='images/paper.jpg' alt='paper' class='paper paper-hover'>
+                <img src='images/scissors.jpg' alt='scissors' class='scissors scissors-hover'>
             </div>
           </div>
 
@@ -54,8 +58,9 @@
 
 
         <div class="main-2" >
+          <div class='scoreboard'>
 
-          <div class='scoreboard-container'>
+              <div class='scoreboard-container'>
                 <div class='scoreboard-header'>
                     <div class='scoreboard-header-1'>
                         <p id='user-name-scoreboard'>user</p>
@@ -81,12 +86,18 @@
                         <p id='computer-score'>00</p>
                     </div>
                 </div>
+              </div> 
 
-          </div> 
+              <div class='reset-score'>
+                <button id='reset-score'> reset score </button>
+              </div> 
+        </div>
+
+        
 
         </div>
 
-        <p> Hope you enjoy the game!</p>
+        <p id='show-text'> Hope you enjoy the game!</p>
 
       </main>
       
