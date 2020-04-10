@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500&display=swap');
+
 body {
     margin: 0;
+    font-family: 'Baloo Thambi 2', cursive;
 }
+
+
 
 #header-nav {
     width: 100%;
@@ -12,16 +17,11 @@ body {
     justify-content: center;
     align-items: center;
 }
-    /* .circle {
-        height: 50px;
-        width: 50px;
-        background-color: #555;
-        border-radius: 50%;
-    } */
 
 .header-1 {
     height: 30px;
     background-color: black;
+    color: white;
 }
 
 .header-2 {
@@ -148,8 +148,6 @@ body {
     .reset-score {
         margin: 20px auto 0;
         width: 83px;
-
-
     }
 
         .scoreboard-header {
@@ -181,3 +179,39 @@ body {
                 #user-score, #computer-score {
                     font-size: 20px;
                 } 
+
+.main-3 {
+    border: 1px solid black;
+}
+
+    .fun-fact-title, .fun-fact-container-1, .fun-fact-container-2, .fun-fact-footer {
+        width: 90vw;
+        margin: 20px auto;
+        border: 1px solid red;
+    }
+
+    .fun-fact-title {
+        text-align: center;
+    }
+
+    .fun-fact-container-1, .fun-fact-container-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .fun-fact-1, .fun-fact-2, .fun-fact-3 {
+            margin: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid pink;
+        }
+
+        .fun-fact-4, .fun-fact-5, .fun-fact-6 {
+            margin: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid pink;
+        }
+
+        
