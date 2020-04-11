@@ -61,8 +61,7 @@ function formatScore(userCurrentScore, computerCurrentScore) {
 }
 
 
-function determine_winner(userChosenValue, computerChosenValue) {
-    //console.log(userChoose_value, computerChoose_value)
+function determineWinner(userChosenValue, computerChosenValue) {
     let winner = '';
     let resultDisplay = document.getElementsByClassName('middle-stage-container')[0];
     resultDisplay.style.opacity = '1'; 
@@ -106,7 +105,7 @@ function computerChoose(userChosenValue) {
         document.getElementsByClassName('computer-paper')[0].style.visibility = 'hidden';
     }
 
-    determine_winner(userChosenValue, computerChosenValue);
+    determineWinner(userChosenValue, computerChosenValue);
 }
 
 //------------------------------------------
@@ -213,25 +212,27 @@ resetScoreButton.addEventListener('click', resetScore);
 // let boundingBottom = displayBottom.getBoundingClientRect();
 // let scrollTopValue = '';
 
+
 function getPageOffsetTop() {
-    document.getElementById('show-text').innerHTML = window.pageYOffset + 'px';
+    document.getElementsByClassName('header-1')[0].innerHTML = window.pageYOffset + 'px';
     //log(window.pageYOffset + 'px');
     scrollTopValue = window.pageYOffset;
-    log(scrollTopValue);
+    //log(scrollTopValue);
     return scrollTopValue;
 }
 
 window.addEventListener('scroll', getPageOffsetTop);
 
+//--------------------------------------------------
 
 function userChooseByKeydown(e) {
-    if (isGameOver === true) {
-        return;
-    }
-
     let pageOffset = getPageOffsetTop();
 
-    if (pageOffset < 800 || pageOffset > 1185 ) {
+    if (pageOffset < 400 || pageOffset > 1050 ) {
+        return;
+    }
+    
+    if (isGameOver === true) {
         return;
     }
 
@@ -241,8 +242,7 @@ function userChooseByKeydown(e) {
     let rock = document.getElementsByClassName('rock')[0];
     let paper = document.getElementsByClassName('paper')[0];
     let scissors = document.getElementsByClassName('scissors')[0];
-
-    if (pageOffset >= 800 && pageOffset <= 1185 ) { //or boundingTop is view
+    
         if (keycode == 0) {
             userChosenValue = 'rock';
             rock.style.height = '80px';
@@ -266,7 +266,6 @@ function userChooseByKeydown(e) {
             rock.style.visibility = 'hidden';
             paper.style.visibility = 'hidden'; 
         }
-    }
 
     console.log(userChosenValue);
 
@@ -276,6 +275,22 @@ function userChooseByKeydown(e) {
 }
 
 document.body.addEventListener('keydown', userChooseByKeydown);
+
+//----------------------------------------------------
+
+//when main1 is not visible
+let displayObserver = new IntersectionObserver(function(entries) {
+    let displayAlert = document.getElementById('scroll-up-to-play');
+	if(entries[0].isIntersecting === false) { 
+        console.log('Element is not visible on screen');
+        displayAlert.innerHTML = '<div id="arrow-up" class="fa fa-angle-double-up"> Scroll up to play! </div> <div id="arrow-up" class="fa fa-angle-double-up"></div>';
+    } else {
+        displayAlert.innerText = ''
+    }
+}, { threshold: [0.5] });
+
+
+displayObserver.observe(document.querySelector(".main-1"));
 
 //so now I have 
 
