@@ -160,6 +160,64 @@ let userChoice = document.getElementById('user-choice');
 
 //--------------------------------------------
 
+function userChooseByKeydown(e) {
+    let pageOffset = getPageOffsetTop();
+    if (pageOffset < 400 || pageOffset > 1050 ) {
+        return;
+    }
+
+    let keycode = e.key;
+    // if (keycode != 0) {
+    //     return;
+    // }
+    
+    if (isGameOver === true) {
+        return;
+    }
+
+    let userChosenValue = '';
+
+    let rock = document.getElementsByClassName('rock')[0];
+    let paper = document.getElementsByClassName('paper')[0];
+    let scissors = document.getElementsByClassName('scissors')[0];
+    
+        if (keycode == 0) {
+            userChosenValue = 'rock';
+            rock.style.height = '80px';
+            rock.style.width = '80px';
+
+            paper.style.visibility = 'hidden';
+            scissors.style.visibility = 'hidden'; 
+
+        } else if (keycode == 5) {
+            userChosenValue = 'paper';
+            paper.style.height = '80px';
+            paper.style.width = '80px';
+
+            rock.style.visibility = 'hidden';
+            scissors.style.visibility = 'hidden'; 
+        } else if (keycode == 2) {
+            userChosenValue = 'scissors';
+            scissors.style.height = '80px';
+            scissors.style.width = '80px';
+
+            rock.style.visibility = 'hidden';
+            paper.style.visibility = 'hidden'; 
+        } else {
+            return;
+        }
+
+    console.log(userChosenValue);
+
+    computerChoose(userChosenValue);
+
+    setTimeout(resetTheGame, 3000);
+}
+
+document.body.addEventListener('keydown', userChooseByKeydown);
+
+//------------------------------------------------------------
+
 function resetTheGame() {
     isGameOver = false;
     
@@ -206,76 +264,14 @@ let resetScoreButton = document.getElementById('reset-score')
 resetScoreButton.addEventListener('click', resetScore);
 
 //-------------------------------------------------
-// let displayBottom = document.getElementsByClassName('main-2')[0];
-// let displayTop = document.getElementsByClassName('header-1')[0];
-// let boundingTop = displayTop.getBoundingClientRect();
-// let boundingBottom = displayBottom.getBoundingClientRect();
-// let scrollTopValue = '';
-
 
 function getPageOffsetTop() {
     document.getElementsByClassName('header-1')[0].innerHTML = window.pageYOffset + 'px';
-    //log(window.pageYOffset + 'px');
-    scrollTopValue = window.pageYOffset;
-    //log(scrollTopValue);
-    return scrollTopValue;
+    pageTopValue = window.pageYOffset;
+    return pageTopValue;
 }
 
 window.addEventListener('scroll', getPageOffsetTop);
-
-//--------------------------------------------------
-
-function userChooseByKeydown(e) {
-    let pageOffset = getPageOffsetTop();
-
-    if (pageOffset < 400 || pageOffset > 1050 ) {
-        return;
-    }
-    
-    if (isGameOver === true) {
-        return;
-    }
-
-    let keycode = e.key;
-    let userChosenValue = '';
-
-    let rock = document.getElementsByClassName('rock')[0];
-    let paper = document.getElementsByClassName('paper')[0];
-    let scissors = document.getElementsByClassName('scissors')[0];
-    
-        if (keycode == 0) {
-            userChosenValue = 'rock';
-            rock.style.height = '80px';
-            rock.style.width = '80px';
-
-            paper.style.visibility = 'hidden';
-            scissors.style.visibility = 'hidden'; 
-
-        } else if (keycode == 5) {
-            userChosenValue = 'paper';
-            paper.style.height = '80px';
-            paper.style.width = '80px';
-
-            rock.style.visibility = 'hidden';
-            scissors.style.visibility = 'hidden'; 
-        } else if (keycode == 2) {
-            userChosenValue = 'scissors';
-            scissors.style.height = '80px';
-            scissors.style.width = '80px';
-
-            rock.style.visibility = 'hidden';
-            paper.style.visibility = 'hidden'; 
-        }
-
-    console.log(userChosenValue);
-
-    computerChoose(userChosenValue);
-
-    setTimeout(resetTheGame, 3000);
-}
-
-document.body.addEventListener('keydown', userChooseByKeydown);
-
 //----------------------------------------------------
 
 //when main1 is not visible
@@ -292,6 +288,3 @@ let displayObserver = new IntersectionObserver(function(entries) {
 
 displayObserver.observe(document.querySelector(".main-1"));
 
-//so now I have 
-
-//animate opacity? https://www.youtube.com/watch?v=CxC925yUxSI&t=440s
