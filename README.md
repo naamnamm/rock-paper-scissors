@@ -16,7 +16,7 @@ Start the game [here](https://naamnamm.github.io/rock-paper-scissors/)
 ## Summary
 I got an MBA in Finance in 2019 and am currently working as an auditor for a Pharmaceutical company in Washington DC. Right after graduation, I was so passionate to learn how to code. It is awesome to be able to build things from scratch that could benefit people's life. This is how I start my journey as a programmer.
 
-This is my third web app project. I worked through a lot of problem-solving and had to revisit a lot of basic javascript concepts. It was challenging at times but it's pretty awesome to see the end results. 
+This is my third web app project. I worked through a lot of problem-solving and had to revisit a lot of basic javascript concepts. It was challenging at times but it's pretty awesome to see the end results. :)
 
 ## Author
 - Naam Pondpat - [LinkedIn](https://www.linkedin.com/in/pondpat-tohsanguanpun-638153150/)
