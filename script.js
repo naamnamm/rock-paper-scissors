@@ -44,13 +44,10 @@ function userChooseByClick(e) {
 
     if (e.target.classList.contains('rock')) {
         userChosenValue = showRock();
-        e.target.classList.remove('rock-hover');
     } else if (e.target.classList.contains('paper')) {
         userChosenValue = showPaper();
-        e.target.classList.remove('paper-hover');
     } else if (e.target.classList.contains('scissors')) {
         userChosenValue = showScissors();
-        e.target.classList.remove('scissors-hover');
     } else {
         return;
     }
@@ -234,6 +231,7 @@ function showRock() {
     
     rock.style.height = '80px';
     rock.style.width = '80px';
+    rock.classList.remove('rock-hover');
 
     paper.style.visibility = 'hidden';
     scissors.style.visibility = 'hidden'; 
@@ -250,6 +248,7 @@ function showPaper() {
     
     paper.style.height = '80px';
     paper.style.width = '80px';
+    paper.classList.remove('paper-hover');
 
     rock.style.visibility = 'hidden';
     scissors.style.visibility = 'hidden'; 
@@ -266,6 +265,7 @@ function showScissors() {
     
     scissors.style.height = '80px';
     scissors.style.width = '80px';
+    scissors.classList.remove('scissors-hover');
 
     rock.style.visibility = 'hidden';
     paper.style.visibility = 'hidden'; 
