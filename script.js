@@ -11,7 +11,7 @@ startBtn.addEventListener('click', (e) => {
 let userName = 'User';
 
 function getUserName() {
-    let userName = prompt("Are you ready to play? Please enter your name")
+    userName = prompt("Are you ready to play? Please enter your name")
     let userNameTitle = document.getElementById('user-name-title');
     let userNameScoreboard = document.getElementById('user-name-scoreboard');
     let computerInstruction = document.getElementById('computer-text');
@@ -26,9 +26,11 @@ function getUserName() {
     userNameScoreboard.innerText = `${userName}`;
     computerInstruction.innerText = `Computer is ready when ${userName} is`;
     }
-
+    console.log(userName);
     return userName;
 }
+
+console.log(userName);
 
 
 let isGameOver = false;
