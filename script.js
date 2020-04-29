@@ -1,14 +1,29 @@
+let userName = 'User';
+let isGameOver = false;
+let userCurrentScore = 0;
+let computerCurrentScore = 0;
+
+let resetScoreButton = document.getElementById('reset-score')
+resetScoreButton.addEventListener('click', resetScore);
+
+let userChoice = document.getElementById('user-choice');
+userChoice.addEventListener('click', userChooseByClick);
+
+window.addEventListener('scroll', getPageOffsetTop);
+
+document.body.addEventListener('keydown', userChooseByKeydown);
+
+
 const startBtn = document.getElementById('start-button');
 startBtn.addEventListener('click', (e) => {
     let scrollToDiv = document.getElementsByClassName('header-1')[0];
     scrollToDiv.scrollIntoView({
         behavior: 'smooth',
     });
-        setTimeout(getUserName, 2000);
-    }
-)
 
-let userName = 'User';
+    getUserName();
+});
+
 
 function getUserName() {
     userName = prompt("Are you ready to play? Please enter your name")
@@ -17,163 +32,163 @@ function getUserName() {
     let computerInstruction = document.getElementById('computer-text');
 
     if (userName == null || userName.length == 0) {
-    userName = 'User'
-    userNameTitle.innerText = 'User'; 
-    userNameScoreboard.innerText = 'User';
-    computerInstruction.innerText = 'Computer is ready when user is';
-    }   else {
-    userNameTitle.innerText = `${userName}`;
-    userNameScoreboard.innerText = `${userName}`;
-    computerInstruction.innerText = `Computer is ready when ${userName} is`;
+        userName = 'User'
+        userNameTitle.innerText = 'User';
+        userNameScoreboard.innerText = 'User';
+        computerInstruction.innerText = 'Computer is ready when user is';
+    } else {
+        userNameTitle.innerText = `${userName}`;
+        userNameScoreboard.innerText = `${userName}`;
+        computerInstruction.innerText = `Computer is ready when ${userName} is`;
     }
-    console.log(userName);
-    return userName;
 }
 
-console.log(userName);
 
-
-let isGameOver = false;
-
+//get rock paper scissors value
 function userChooseByClick(e) {
+    userChoose(e.target.id);
+}
+
+
+//pass in 'rock paper or scissors'
+//get computer random
+//determine winner
+//reset the game
+function userChoose(userChoice) { 
     if (isGameOver === true) {
         return;
     }
 
-    let userChosenValue = '';
+    if (userChoice === 'rock') {
+        showRock();
+    } 
+    
+    if (userChoice === 'paper') {
+        showPaper();
+    } 
+    
+    if (userChoice === 'scissors') {
+        showScissors();
+    } 
 
-    if (e.target.classList.contains('rock')) {
-        userChosenValue = showRock();
-    } else if (e.target.classList.contains('paper')) {
-        userChosenValue = showPaper();
-    } else if (e.target.classList.contains('scissors')) {
-        userChosenValue = showScissors();
-    } else {
+    let computerChoice = getRandomComputerChoice(); // return rock, paper, scissors
+    let result = determineWinner(userChoice, computerChoice); // return tie, win, lose
+    displayResult(result); // just for display purpose
+    updateScoreBoard(result);
+
+    setTimeout(resetTheGame, 3000);
+    
+}
+
+//get rock paper scissors value
+function userChooseByKeydown(e) {
+    let pageOffset = getPageOffsetTop();
+    if (pageOffset < 400 || pageOffset > 1050) {
         return;
     }
 
-    computerChoose(userChosenValue);
+    let keycode = e.key;
 
-    setTimeout(resetTheGame, 3000);
+    if (keycode == 0) {
+        userChoose('rock');
+    } 
+
+    if (keycode == 5) {
+        userChoose('paper');
+    } 
+
+    if (keycode == 2) {
+        userChoose('scissors');
+    }
 }
-
-let userChoice = document.getElementById('user-choice');
-userChoice.addEventListener('click', userChooseByClick);
 
 
 function getPageOffsetTop() {
     return window.pageYOffset;
 }
 
-window.addEventListener('scroll', getPageOffsetTop);
 
-
-function userChooseByKeydown(e) {
-    let pageOffset = getPageOffsetTop();
-    if (pageOffset < 400 || pageOffset > 1050 ) {
-        return;
-    }
-
-    if (isGameOver === true) {
-        return;
-    }
-
-    let keycode = e.key;
-    let userChosenValue = '';
-    
-        if (keycode == 0) {
-            userChosenValue = showRock();
-        } else if (keycode == 5) {
-            userChosenValue = showPaper();
-        } else if (keycode == 2) {
-            userChosenValue = showScissors();
-        } else {
-            return;
-        }
-
-    computerChoose(userChosenValue);
-
-    setTimeout(resetTheGame, 3000);
-}
-
-document.body.addEventListener('keydown', userChooseByKeydown);
-
-
-function computerChoose(userChosenValue) {
+//get random choice
+function getRandomComputerChoice() {
     let rockPaperScissors = ['rock', 'paper', 'scissors'];
-    let computerChosenValue = rockPaperScissors[Math.floor(Math.random() * rockPaperScissors.length)];
-    
-    if (computerChosenValue === 'rock') {
+    let computerChoice = rockPaperScissors[Math.floor(Math.random() * rockPaperScissors.length)];
+
+    displayComputerChoice(computerChoice);
+
+    return computerChoice;
+}
+
+//display computer choice
+function displayComputerChoice(computerChoice) {
+    if (computerChoice === 'rock') {
         document.getElementsByClassName('computer-paper')[0].style.visibility = 'hidden';
         document.getElementsByClassName('computer-scissors')[0].style.visibility = 'hidden';
-    } else if (computerChosenValue = 'paper') {
+    } else if (computerChoice = 'paper') {
         document.getElementsByClassName('computer-rock')[0].style.visibility = 'hidden';
         document.getElementsByClassName('computer-scissors')[0].style.visibility = 'hidden';
-    } else if (computerChosenValue = 'scissors') {
+    } else if (computerChoice = 'scissors') {
         document.getElementsByClassName('computer-rock')[0].style.visibility = 'hidden';
         document.getElementsByClassName('computer-paper')[0].style.visibility = 'hidden';
     }
-
-    determineWinner(userChosenValue, computerChosenValue);
 }
 
-
-function determineWinner(userChosenValue, computerChosenValue) {
-    let winner = '';
-    let resultDisplay = document.getElementsByClassName('middle-stage-container')[0];
-    resultDisplay.style.opacity = '1'; 
-
+//determine who won (user or computer)
+function determineWinner(userChoice, computerChoice) {
     isGameOver = true;
+
+    if (userChoice === computerChoice) {
+        return 'tie';
+    } 
+    
+    let rockBeatsScissors = userChoice === 'rock' && computerChoice === 'scissors';
+    let paperBeatsRock = userChoice === 'paper' && computerChoice === 'rock';
+    let scissorsBeatsPaper = userChoice === 'scissors' && computerChoice === 'paper';
+
+    if ( rockBeatsScissors || paperBeatsRock || scissorsBeatsPaper) {
+        return 'win';  
+    } else {
+        return 'lose';
+    }
+}
+
+function displayResult(result) {
+    let resultDisplay = document.getElementsByClassName('middle-stage-container')[0];
+    resultDisplay.style.opacity = '1';
 
     let updateText = document.getElementById('result');
 
-    if (userChosenValue === computerChosenValue) {
+    if (result === 'tie') {
         updateText.textContent = 'Tie!';
-        setTimeout(resetTheGame, 3000);
-    } else if (userChosenValue === 'rock' && computerChosenValue === 'scissors') {
-        winner = 'user';
+    } 
+    
+    if (result === 'win') {
         updateText.textContent = `${userName} wins`;
-    } else if (userChosenValue === 'paper' && computerChosenValue === 'rock') {
-        winner = 'user';
-        updateText.textContent = `${userName} wins`;
-    } else if (userChosenValue === 'scissors' && computerChosenValue === 'paper') {
-        winner = 'user';
-        updateText.textContent = `${userName} wins`;
-    } else {
-        winner = 'computer';
+    } 
+    
+    if (result === 'lose') {
         updateText.textContent = 'computer wins';
-    }  
-
-    updateScoreBoard(winner);
+    }
 }
 
 
-let userCurrentScore = 0;
-let computerCurrentScore = 0;
-
-function updateScoreBoard(winner) {
+function updateScoreBoard(result) {
     let userScore = document.getElementById('user-score');
     let computerScore = document.getElementById('computer-score');
-    
-    if (winner === 'user')  {
+
+    if (result === 'win') {
         userCurrentScore++;
         userScore.innerText = formatScore(userCurrentScore);
-    } else if (winner === 'computer') {
+    } 
+    
+    if (result === 'lose') {
         computerCurrentScore++;
         computerScore.innerText = formatScore(computerCurrentScore);
     }
 }
 
 
-function formatScore(userCurrentScore, computerCurrentScore) {
-    if (userCurrentScore < 10) {
-        return '0' + userCurrentScore;
-    } 
-    if (computerCurrentScore < 10) {
-        return '0' + computerCurrentScore;
-    } else {
-        return computerCurrentScore, userCurrentScore; 
-    }
+function formatScore(score) {
+    return (score < 10 ? '0' + score : score); 
 }
 
 
@@ -188,13 +203,10 @@ function resetScore() {
     computerScore.innerText = '00';
 }
 
-let resetScoreButton = document.getElementById('reset-score')
-resetScoreButton.addEventListener('click', resetScore);
-
 
 function resetTheGame() {
     isGameOver = false;
-    
+
     let resultDisplay = document.getElementsByClassName('middle-stage-container')[0];
     resultDisplay.style.opacity = '0';
 
@@ -205,7 +217,7 @@ function resetTheGame() {
     rock.className = 'rock rock-hover';
 
     let paper = document.getElementsByClassName('paper')[0];
-    paper.style.visibility = ''; 
+    paper.style.visibility = '';
     paper.style.height = '60px';
     paper.style.width = '60px';
     paper.className = 'paper paper-hover';
@@ -223,60 +235,60 @@ function resetTheGame() {
 
 
 function showRock() {
-    let userChosenValue = 'rock';
+    let userChoice = 'rock';
 
     let rock = document.getElementsByClassName('rock')[0];
     let paper = document.getElementsByClassName('paper')[0];
     let scissors = document.getElementsByClassName('scissors')[0];
-    
+
     rock.style.height = '80px';
     rock.style.width = '80px';
     rock.classList.remove('rock-hover');
 
     paper.style.visibility = 'hidden';
-    scissors.style.visibility = 'hidden'; 
-    
-    return userChosenValue;
+    scissors.style.visibility = 'hidden';
+
+    return userChoice;
 }
 
 function showPaper() {
-    let userChosenValue = 'paper';
+    let userChoice = 'paper';
 
     let rock = document.getElementsByClassName('rock')[0];
     let paper = document.getElementsByClassName('paper')[0];
     let scissors = document.getElementsByClassName('scissors')[0];
-    
+
     paper.style.height = '80px';
     paper.style.width = '80px';
     paper.classList.remove('paper-hover');
 
     rock.style.visibility = 'hidden';
-    scissors.style.visibility = 'hidden'; 
-    
-    return userChosenValue;
+    scissors.style.visibility = 'hidden';
+
+    return userChoice;
 }
 
 function showScissors() {
-    let userChosenValue = 'scissors';
+    let userChoice = 'scissors';
 
     let rock = document.getElementsByClassName('rock')[0];
     let paper = document.getElementsByClassName('paper')[0];
     let scissors = document.getElementsByClassName('scissors')[0];
-    
+
     scissors.style.height = '80px';
     scissors.style.width = '80px';
     scissors.classList.remove('scissors-hover');
 
     rock.style.visibility = 'hidden';
-    paper.style.visibility = 'hidden'; 
-    
-    return userChosenValue;
+    paper.style.visibility = 'hidden';
+
+    return userChoice;
 }
 
 
-const displayObserver = new IntersectionObserver( (entries) => {
+const displayObserver = new IntersectionObserver((entries) => {
     let displayAlert = document.getElementById('scroll-up-to-play');
-	if (entries[0].isIntersecting === false) { 
+    if (entries[0].isIntersecting === false) {
         displayAlert.innerHTML = '<div id="arrow-up" class="fa fa-angle-double-up"> Scroll up to play! </div> <div id="arrow-up" class="fa fa-angle-double-up"></div>';
     } else {
         displayAlert.innerText = ''
